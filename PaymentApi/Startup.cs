@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using PaymentApi.Data;
 using Microsoft.EntityFrameworkCore;
 using PaymentApi.Interfaces;
+using PaymentApi.Services;
 
 namespace PaymentApi
 {
@@ -31,9 +32,9 @@ namespace PaymentApi
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddScoped<ICheapPaymentGateway, ICheapPaymentGateway>();
+            services.AddScoped<ICheapPaymentGateway, CheapPaymentGateway>();
 
-            services.AddScoped<IExpensivePaymentGateway, IExpensivePaymentGateway>();
+            services.AddScoped<IExpensivePaymentGateway, ExpensivePaymentGateway>();
 
             services.AddDbContextPool<PaymentContext>(options => options.UseSqlite(Configuration.GetConnectionString("DbConn")));
 

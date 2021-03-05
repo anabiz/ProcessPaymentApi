@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PaymentApi.Dto;
 using PaymentApi.Interfaces;
+using PaymentApi.Utils;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace PaymentApi.ControllersBase
+namespace PaymentApi.Controllers
 {
-    public class PaymentController : Controller
+
+    [Route("apiv1/processpayment")]
+    [ApiController]
+    public class PaymentController : ControllerBase
     {
         private readonly IExpensivePaymentGateway _expensivePayment;
         private readonly ICheapPaymentGateway _cheapPayment;
@@ -21,10 +26,29 @@ namespace PaymentApi.ControllersBase
         }
 
 
-        // GET: /<controller>/
-        public IActionResult Index()
+        [HttpPost]
+        public async Task<IActionResult> ProcessPayment(PaymentDto payment)
         {
-            return View();
+            if(!CheckValidCard.CheckCard(payment.CreditCardNumber)) return BadRequest();
+            try
+            {
+                if(payment.Amount <= 20)
+                {
+                    return Ok(await _cheapPayment.ProcessCheapPayment(payment));
+
+                }else if (payment.Amount > 20 && payment.Amount <= 500)
+                {
+                    return Ok(await _expensivePayment.ProcessExpensivePayment(payment));
+                }
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+  
+                return StatusCode(500);
+            }
+            
         }
     }
 }
