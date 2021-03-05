@@ -13,6 +13,8 @@ namespace PaymentApi.Dto
         public DateTime ExpirationDate { get; set; }
         [Required]
         public int Amount { get; set; }
+        [MaxLength(3)]
+        [MinLength(3)]
         public string SecurityCode { get; set; }
     
     }

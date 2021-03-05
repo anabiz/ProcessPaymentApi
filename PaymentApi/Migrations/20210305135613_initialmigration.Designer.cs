@@ -9,7 +9,7 @@ using PaymentApi.Data;
 namespace PaymentApi.Migrations
 {
     [DbContext(typeof(PaymentContext))]
-    [Migration("20210305130928_initialmigration")]
+    [Migration("20210305135613_initialmigration")]
     partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,15 +28,18 @@ namespace PaymentApi.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("CardHolder")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CreditCardNumber")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("ExpirationDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SecurityCode")
+                        .HasMaxLength(3)
                         .HasColumnType("TEXT");
 
                     b.HasKey("PaymentId");

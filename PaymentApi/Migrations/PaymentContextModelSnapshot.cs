@@ -37,6 +37,7 @@ namespace PaymentApi.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SecurityCode")
+                        .HasMaxLength(3)
                         .HasColumnType("TEXT");
 
                     b.HasKey("PaymentId");

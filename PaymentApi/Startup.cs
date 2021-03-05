@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PaymentApi.Data;
 using Microsoft.EntityFrameworkCore;
-
+using PaymentApi.Interfaces;
 
 namespace PaymentApi
 {
@@ -30,6 +30,11 @@ namespace PaymentApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddScoped<ICheapPaymentGateway, ICheapPaymentGateway>();
+
+            services.AddScoped<IExpensivePaymentGateway, IExpensivePaymentGateway>();
+
             services.AddDbContextPool<PaymentContext>(options => options.UseSqlite(Configuration.GetConnectionString("DbConn")));
 
             services.AddControllers();

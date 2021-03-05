@@ -13,11 +13,11 @@ namespace PaymentApi.Migrations
                 {
                     PaymentId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CreditCardNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    CardHolder = table.Column<string>(type: "TEXT", nullable: true),
+                    CreditCardNumber = table.Column<string>(type: "TEXT", nullable: false),
+                    CardHolder = table.Column<string>(type: "TEXT", nullable: false),
                     ExpirationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    SecurityCode = table.Column<string>(type: "TEXT", nullable: true),
-                    Amount = table.Column<int>(type: "INTEGER", nullable: false)
+                    Amount = table.Column<int>(type: "INTEGER", nullable: false),
+                    SecurityCode = table.Column<string>(type: "TEXT", maxLength: 3, nullable: true)
                 },
                 constraints: table =>
                 {
