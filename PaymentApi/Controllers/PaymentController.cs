@@ -28,7 +28,9 @@ namespace PaymentApi.Controllers
         [HttpPost]
         public async Task<IActionResult> ProcessPayment(PaymentDto payment)
         {
-            if(!CheckValidCard.CheckCard(payment.CreditCardNumber)) return BadRequest();
+            if(!CheckValidCard.CheckCard(payment.CreditCardNumber)) return BadRequest("invalid CCN");
+            if (!ValidateRequest.validateRequest(payment)) return BadRequest("invalid request");
+
             try
             {
                 if(payment.Amount <= 20)

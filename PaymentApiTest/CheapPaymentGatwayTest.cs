@@ -14,7 +14,6 @@ namespace PaymentApiTest
     public class CheapPaymentGatwayTest
     {
         private CheapPaymentGateway cheapRepository;
-        //private ExpensivePaymentGateway expensiveRepository;
 
         public static DbContextOptions<PaymentContext> dbContextOptions { get; }
         public static string connectionString = "Data Source = PaymentTestDb.db";
