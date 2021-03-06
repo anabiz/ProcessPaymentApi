@@ -7,7 +7,6 @@ using PaymentApi.Dto;
 using PaymentApi.Interfaces;
 using PaymentApi.Utils;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace PaymentApi.Controllers
 {

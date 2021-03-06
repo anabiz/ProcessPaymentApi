@@ -1,5 +1,5 @@
 ﻿using System;
-using PaymentApi.Models;
+using PaymentApi.Entities;
 using Microsoft.EntityFrameworkCore;
 
 

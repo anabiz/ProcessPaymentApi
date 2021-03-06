@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
 using PaymentApi.Dto;
-using PaymentApi.Models;
+using PaymentApi.Entities;
 
 namespace PaymentApi.Interfaces
 {
     public interface IExpensivePaymentGateway
     {
-        Task<ServiceResponse<PaymentDto>> ProcessExpensivePayment(PaymentDto payment);
+        Task<ServiceResponse<Payment>> ProcessExpensivePayment(PaymentDto payment);
     }
 }

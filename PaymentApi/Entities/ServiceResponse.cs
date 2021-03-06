@@ -1,5 +1,5 @@
 ﻿using System;
-namespace PaymentApi.Models
+namespace PaymentApi.Entities
 {
     public class ServiceResponse<T>
     {

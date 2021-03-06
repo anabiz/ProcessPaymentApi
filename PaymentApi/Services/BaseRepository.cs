@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Internclap.Infrastructure.Services
 {
-    public abstract class BaseRepository<T> : IRepository<T> where T : class
+    public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         protected readonly PaymentContext _dataContext;
         private readonly DbSet<T> entitySet;

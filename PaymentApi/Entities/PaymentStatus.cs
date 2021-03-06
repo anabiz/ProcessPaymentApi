@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PaymentApi.Models
+namespace PaymentApi.Entities
 {
     public class PaymentStatus
     {

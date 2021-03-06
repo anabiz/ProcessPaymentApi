@@ -5,31 +5,27 @@ using Microsoft.EntityFrameworkCore;
 using PaymentApi.Data;
 using PaymentApi.Dto;
 using PaymentApi.Interfaces;
-using PaymentApi.Models;
+using PaymentApi.Entities;
+using AutoMapper;
 
 namespace PaymentApi.Services
 {
     public class CheapPaymentGateway : BaseRepository<Payment>, ICheapPaymentGateway
     {
         private readonly PaymentContext _context;
+        private readonly IMapper _mapper;
 
-        public CheapPaymentGateway(PaymentContext context): base(context)
+        public CheapPaymentGateway(PaymentContext context, IMapper mapper) : base(context)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<ServiceResponse<PaymentDto>> ProcessCheapPayment(PaymentDto payment)
+        public async Task<ServiceResponse<Payment>> ProcessCheapPayment(PaymentDto payment)
         {
-            var response = new ServiceResponse<PaymentDto>();
-            Payment newPayment = new Payment()
-            {
-                CreditCardNumber = payment.CreditCardNumber,
-                CardHolder =payment.CardHolder,
-                ExpirationDate = DateTime.Now,
-                Amount = payment.Amount,
-                SecurityCode = payment.SecurityCode
+            var response = new ServiceResponse<Payment>();
 
-            };
+            Payment newPayment = _mapper.Map<Payment>(payment);
             await Save(newPayment);
 
             //call external service here to process the payment

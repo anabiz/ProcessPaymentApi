@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Internclap.Core.Interfaces
 {
-    public interface IRepository<T>
+    public interface IBaseRepository<T>
     { 
         Task<T> Find(int? id);
         Task Save(T t);
