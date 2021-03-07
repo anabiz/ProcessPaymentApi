@@ -10,6 +10,5 @@ namespace PaymentApi.Entities
         [Key]
         public int PaymentId { get; set;}
         public string status { get; set; }
-        public Payment payment {get; set;}
     }
 }

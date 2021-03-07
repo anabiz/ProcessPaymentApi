@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PaymentApi.Dto;
+using PaymentApi.Entities;
 using PaymentApi.Interfaces;
 using PaymentApi.Utils;
 
@@ -17,11 +19,16 @@ namespace PaymentApi.Controllers
     {
         private readonly IExpensivePaymentGateway _expensivePayment;
         private readonly ICheapPaymentGateway _cheapPayment;
+        private readonly IPremiumPaymentService _premiumPayment;
+        private readonly IMapper _mapper;
 
-        public PaymentController(IExpensivePaymentGateway expensivePayment, ICheapPaymentGateway cheapPayment)
+        public PaymentController(IExpensivePaymentGateway expensivePayment, ICheapPaymentGateway cheapPayment, IMapper mapper, IPremiumPaymentService premiumPayment)
         {
             _expensivePayment = expensivePayment;
             _cheapPayment = cheapPayment;
+            _premiumPayment = premiumPayment;
+            _mapper = mapper;
+
         }
 
 
@@ -33,20 +40,24 @@ namespace PaymentApi.Controllers
 
             try
             {
-                if(payment.Amount <= 20)
+                Payment newPayment = _mapper.Map<Payment>(payment);
+                if (payment.Amount <= 20)
                 {
-                    return Ok(await _cheapPayment.ProcessCheapPayment(payment));
+                    return Ok(await _cheapPayment.ProcessCheapPayment(newPayment));
 
-                }else if (payment.Amount > 20 && payment.Amount <= 500)
-                {
-                    return Ok(await _expensivePayment.ProcessExpensivePayment(payment));
                 }
-
-                return Ok();
+                else if (payment.Amount > 20 && payment.Amount <= 500)
+                {
+                    return Ok(await _expensivePayment.ProcessExpensivePayment(newPayment));
+                }else
+                {
+                    return Ok(await _premiumPayment.ProcessPremiumPayment(newPayment));
+                }
+                
+                
             }
             catch (Exception e)
             {
-  
                 return StatusCode(500);
             }
             

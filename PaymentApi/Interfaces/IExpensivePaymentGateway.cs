@@ -6,6 +6,6 @@ namespace PaymentApi.Interfaces
 {
     public interface IExpensivePaymentGateway
     {
-        Task<ServiceResponse<Payment>> ProcessExpensivePayment(PaymentDto payment);
+        Task<ServiceResponse<Payment>> ProcessExpensivePayment(Payment payment);
     }
 }

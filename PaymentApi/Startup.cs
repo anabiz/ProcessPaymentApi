@@ -32,8 +32,23 @@ namespace PaymentApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient< IPaypalService, PaypalService>( c => {
+                c.BaseAddress = new Uri("https://api.flutterwave.com/v3/charges?type=card");
+            });
+            //services.AddHttpClient<IPaypalService, PaypalService>();
+
+
+            services.AddScoped<IPaypalService, PaypalService>();
 
             services.AddScoped<ICheapPaymentGateway, CheapPaymentGateway>();
+
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
+
+            services.AddScoped<IPaymentStatusRepository, PaymentStatusRepository>();
+
+            services.AddScoped<IExpensivePaymentGateway, ExpensivePaymentGateway>();
+
+            services.AddScoped<IPremiumPaymentService, PremiumPaymentService>();
 
             services.AddScoped<IExpensivePaymentGateway, ExpensivePaymentGateway>();
 
@@ -43,7 +58,7 @@ namespace PaymentApi
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            //services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddSwaggerGen(c =>
             {
@@ -54,10 +69,7 @@ namespace PaymentApi
                     Description = "ASP.NET Core Web Api for Processing Payment"
                 });
 
-            });
-
-            //services.ConfigureApplicationServices(Configuration);
-            //services.ConfigureSwagger();
+            });            
 
         }
 
