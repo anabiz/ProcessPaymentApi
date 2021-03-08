@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using PaymentApi.Interfaces;
 using PaymentApi.Entities;
+using System.Collections.Generic;
 
 namespace PaymentApi.Services
 {
@@ -21,11 +22,11 @@ namespace PaymentApi.Services
            var values = new Dictionary<string, string>
            {
                { "card_number", $"{payment.CreditCardNumber}" },
-               { "currency", "Euro" },
+               { "currency", "EUR" },
                { "amount", $"{payment.Amount}" },
                { "cvv", "world" },
-               { "expiry_month", $"{payment.ExpirationDate.Month}" }
-               { "expiry_year", $"{payment.ExpirationDate.Year}" },
+               { "expiry_month", $"{payment.ExpirationDate.Month}" },
+               { "expiry_year", $"{payment.ExpirationDate.Year}" }
 
             };
 

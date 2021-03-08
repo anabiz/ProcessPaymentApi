@@ -35,6 +35,7 @@ namespace PaymentApi
             services.AddHttpClient< IPaypalService, PaypalService>( c => {
                 c.BaseAddress = new Uri("https://api.flutterwave.com/v3/charges?type=card");
             });
+            // AddTransientHttpErrorPolicy();
             //services.AddHttpClient<IPaypalService, PaypalService>();
 
 
