@@ -24,7 +24,9 @@ namespace PaymentApi.Services
                { "card_number", $"{payment.CreditCardNumber}" },
                { "currency", "EUR" },
                { "amount", $"{payment.Amount}" },
-               { "cvv", "world" },
+               { "cvv", "" },
+               {"pin", ""},
+               {"email", ""}
                { "expiry_month", $"{payment.ExpirationDate.Month}" },
                { "expiry_year", $"{payment.ExpirationDate.Year}" }
 
