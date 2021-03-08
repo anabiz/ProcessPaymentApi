@@ -26,7 +26,7 @@ namespace PaymentApi.Services
                { "amount", $"{payment.Amount}" },
                { "cvv", "" },
                {"pin", ""},
-               {"email", ""}
+               {"email", ""},
                { "expiry_month", $"{payment.ExpirationDate.Month}" },
                { "expiry_year", $"{payment.ExpirationDate.Year}" }
 
